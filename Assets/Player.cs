@@ -8,10 +8,11 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 8.0F;
     public float gravity = 20.0F;
     private Vector3 moveDirection = Vector3.zero;
+    public float rotationSpeed = 99f;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -21,9 +22,13 @@ public class Player : MonoBehaviour
         // is the controller on the ground?
         if (controller.isGrounded)
         {
-            //Feed moveDirection with input.
-            moveDirection = new Vector3(-Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
+            //Feed moveDirection with input
+            moveDirection = new Vector3(-Input.GetAxis("Vertical"), 0, 0);
             moveDirection = transform.TransformDirection(moveDirection);
+            float moveRotationAngle = Input.GetAxis("Horizontal");
+            print(moveRotationAngle.ToString());
+
+            transform.Rotate(new Vector3(0,moveRotationAngle * rotationSpeed, 0), rotationSpeed * (Time.deltaTime + 0.15F));
             //Multiply it by speed.
             moveDirection *= speed;
             //Jumping
@@ -35,6 +40,7 @@ public class Player : MonoBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
         //Making the character move
         controller.Move(moveDirection * Time.deltaTime);
+
 
     }
 }

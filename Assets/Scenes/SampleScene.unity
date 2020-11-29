@@ -382,6 +382,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pisto Car
       objectReference: {fileID: 0}
+    - target: {fileID: 7053634551226722170, guid: 5d7394c846ca3fe4c842fc4fb1734fd0, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d7394c846ca3fe4c842fc4fb1734fd0, type: 3}
 --- !u!4 &722454413 stripped
@@ -492,6 +496,7 @@ MonoBehaviour:
   speed: 6
   jumpSpeed: 8
   gravity: 20
+  rotationSpeed: 4
 --- !u!143 &1962783062
 CharacterController:
   m_ObjectHideFlags: 0
