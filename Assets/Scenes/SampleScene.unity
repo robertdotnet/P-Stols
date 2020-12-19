@@ -501,6 +501,7 @@ MonoBehaviour:
   jumpSpeed: 8
   gravity: 20
   rotationSpeed: 4
+  missile: {fileID: 83985402066085597, guid: a29eda3eb2a03474faea2f25482bf232, type: 3}
 --- !u!143 &1962783062
 CharacterController:
   m_ObjectHideFlags: 0

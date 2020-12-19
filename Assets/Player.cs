@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     public float gravity = 20.0F;
     private Vector3 moveDirection = Vector3.zero;
     public float rotationSpeed = 99f;
+    public GameObject missile;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,13 @@ public class Player : MonoBehaviour
     void Update()
     {
         CharacterController controller = GetComponent<CharacterController>();
-        // is the controller on the ground?
+
+        Movement(controller);
+        Fire();
+    }
+
+    private void Movement(CharacterController controller)
+    {
         if (controller.isGrounded)
         {
             //Feed moveDirection with input
@@ -28,7 +36,7 @@ public class Player : MonoBehaviour
             float moveRotationAngle = Input.GetAxis("Horizontal");
             print(moveRotationAngle.ToString());
 
-            transform.Rotate(new Vector3(0,moveRotationAngle * rotationSpeed, 0), rotationSpeed * (Time.deltaTime + 0.15F));
+            transform.Rotate(new Vector3(0, moveRotationAngle * rotationSpeed, 0), rotationSpeed * (Time.deltaTime + 0.15F));
             //Multiply it by speed.
             moveDirection *= speed;
             //Jumping
@@ -40,7 +48,35 @@ public class Player : MonoBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
         //Making the character move
         controller.Move(moveDirection * Time.deltaTime);
+    }
 
+    private void Fire()
+    {
+        if (Input.GetKeyDown("x"))
+        {
+            GameObject missileObject = Instantiate(missile);
+            StartingPosition(missileObject);
+        }
+            //Launch(projectile, projectileSpeed);
+            //DO THE DESPAWN IN MISSILE SCRIPT
+    }
 
+    private void StartingPosition(GameObject projectile)
+    {
+        Vector3 adjuster = new Vector3(1.5f, 0, 0);
+        projectile.transform.position = this.transform.position + adjuster;
+    }
+
+    private void Despawn(GameObject projectile, float lifeSpan)
+    {
+        lifeSpan -= Time.deltaTime;
+        if (lifeSpan <= 0)
+        {
+            Destroy(projectile);
+        }
+    }
+
+    private void Launch(GameObject projectile, float projectileSpeed)
+    {
     }
 }
